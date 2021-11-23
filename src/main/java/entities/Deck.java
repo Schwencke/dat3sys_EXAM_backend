@@ -1,24 +1,25 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import java.sql.Timestamp;
+import javax.persistence.*;
 
 @Entity
 @NamedQuery(name = "Deck.deleteAllRows", query = "DELETE from Deck")
+@Table(name = "deck")
 public class Deck implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "deck_id", nullable = false, length = 12)
     private String deck_id;
 
-    private Date created;
-    private Date completed;
+    @Column(name = "created")
+    private Timestamp created;
+
+    @Column(name = "completed")
+    private Timestamp completed;
+
+    @Column(name = "finished")
     private boolean finished;
 
     public Deck() {
@@ -32,19 +33,19 @@ public class Deck implements Serializable {
         this.deck_id = deck_id;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getCompleted() {
+    public Timestamp getCompleted() {
         return completed;
     }
 
-    public void setCompleted(Date completed) {
+    public void setCompleted(Timestamp completed) {
         this.completed = completed;
     }
 
