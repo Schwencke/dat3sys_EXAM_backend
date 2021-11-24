@@ -1,7 +1,6 @@
 package dtos;
 
 public class NewDeckWithCardDTO {
-    boolean success;
     String image;
     String value;
     String suit;
@@ -9,22 +8,16 @@ public class NewDeckWithCardDTO {
     String deck_id;
     String remaining;
 
+    public NewDeckWithCardDTO() {
+    }
+
     public NewDeckWithCardDTO(boolean success, String image, String value, String suit, String code, String deck_id, String remaining) {
-        this.success = success;
         this.image = image;
         this.value = value;
         this.suit = suit;
         this.code = code;
         this.deck_id = deck_id;
         this.remaining = remaining;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     public String getImage() {

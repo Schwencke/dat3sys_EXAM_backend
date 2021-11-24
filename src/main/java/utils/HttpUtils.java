@@ -1,9 +1,6 @@
 package utils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import dtos.NewDeckWithCardDTO;
 //import dtos.ChuckDTO;
 //import dtos.CombinedDTO;
@@ -15,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
@@ -73,7 +71,17 @@ public class HttpUtils {
         return root.getAsJsonObject();
     }
 
-    public static NewDeckWithCardDTO fetchNewDeck() {
+    public static NewDeckWithCardDTO fetchNewDeck() throws IOException {
+    JsonObject newDeck = fetchJson("http://deckofcardsapi.com/api/deck/new/draw/?count=1");
+    HashMap[] cards = gson.fromJson(newDeck.get("cards"), HashMap[].class);
+    NewDeckWithCardDTO dto = new NewDeckWithCardDTO();
+    dto.setDeck_id(newDeck.get("deck_id").getAsString());
+    dto.setCode((String) cards[0].get("code"));
+    dto.setSuit((String) cards[0].get("suit"));
+    dto.setValue((String) cards[0].get("value"));
+    dto.setImage((String) cards[0].get("image"));
+    dto.setRemaining(newDeck.get("remaining").getAsString());
 
+    return dto;
     }
 }

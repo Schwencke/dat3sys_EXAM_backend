@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 
@@ -26,8 +27,8 @@ public class CardResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getNewDeckShuffle(){
-        return GSON.toJson(HttpUtils.fetchNewDeck());
+    public Response getNewDeckShuffle() throws IOException {
+        return Response.ok(GSON.toJson(HttpUtils.fetchNewDeck())).build();
     }
 
 //    @GET
