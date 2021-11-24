@@ -1,11 +1,13 @@
 package utils;
 
 import com.google.gson.*;
+import dtos.DeckDTO;
 import dtos.NewDeckWithCardDTO;
 //import dtos.ChuckDTO;
 //import dtos.CombinedDTO;
 //import dtos.DadDTO;
 
+import javax.json.Json;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -83,5 +85,10 @@ public class HttpUtils {
     dto.setRemaining(newDeck.get("remaining").getAsString());
 
     return dto;
+    }
+
+    public static DeckDTO shuffleCurrentDeck(String id) throws IOException {
+        JsonObject deck = fetchJson("http://deckofcardsapi.com/api/deck/"+id+"/shuffle/");
+      return new DeckDTO(deck.get("success").getAsBoolean());
     }
 }

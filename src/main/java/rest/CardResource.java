@@ -31,11 +31,11 @@ public class CardResource {
         return Response.ok(GSON.toJson(HttpUtils.fetchNewDeck())).build();
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("{id}")
-//    public String getNewDeckShuffle(@PathParam("id") String id){
-//        return GSON.toJson(HttpUtils.fetchNewDeck());
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("shuffle/{id}")
+    public Response shuffleCurrentDeck(@PathParam("id") String id) throws IOException {
+        return Response.ok(GSON.toJson(HttpUtils.shuffleCurrentDeck(id))).build();
+    }
 
 }
