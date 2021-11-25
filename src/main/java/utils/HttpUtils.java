@@ -90,7 +90,7 @@ public class HttpUtils {
     dto.setValue((String) cards[0].get("value"));
     dto.setImage((String) cards[0].get("image"));
     dto.setRemaining(newDeck.get("remaining").getAsString());
-    //FACADE.persistDeck(dto.getDeck_id());
+    FACADE.persistDeck(dto.getDeck_id());
     return dto;
     }
 
