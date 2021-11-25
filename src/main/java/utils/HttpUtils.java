@@ -3,11 +3,14 @@ package utils;
 import com.google.gson.*;
 import dtos.DeckDTO;
 import dtos.NewDeckWithCardDTO;
+import facades.DeckFacade;
+import facades.FacadeExample;
 //import dtos.ChuckDTO;
 //import dtos.CombinedDTO;
 //import dtos.DadDTO;
 
 import javax.json.Json;
+import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,6 +23,8 @@ import java.util.concurrent.*;
 
 public class HttpUtils {
     private static Gson gson = new Gson();
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private static final DeckFacade FACADE = DeckFacade.getDeckFacade(EMF);
 
 //    public static CombinedDTO fetchDataSequential() throws IOException {
 //        String chuck = HttpUtils.fetchData("https://api.chucknorris.io/jokes/random");
@@ -83,7 +88,7 @@ public class HttpUtils {
     dto.setValue((String) cards[0].get("value"));
     dto.setImage((String) cards[0].get("image"));
     dto.setRemaining(newDeck.get("remaining").getAsString());
-
+    FACADE.persistDeck(dto.getDeck_id());
     return dto;
     }
 
