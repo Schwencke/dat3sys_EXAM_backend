@@ -71,8 +71,10 @@ public class HttpUtils {
     public static JsonObject fetchJson(String _url) throws IOException {
         URL url = new URL(_url);
         HttpURLConnection request = (HttpURLConnection) url.openConnection();
+        request.setRequestMethod("GET");
+        request.setRequestProperty("Accept", "application/json");
+        request.setRequestProperty("User-Agent", "server");
         request.connect();
-
         JsonParser jp = new JsonParser();
         JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
         return root.getAsJsonObject();
@@ -88,7 +90,7 @@ public class HttpUtils {
     dto.setValue((String) cards[0].get("value"));
     dto.setImage((String) cards[0].get("image"));
     dto.setRemaining(newDeck.get("remaining").getAsString());
-    FACADE.persistDeck(dto.getDeck_id());
+    //FACADE.persistDeck(dto.getDeck_id());
     return dto;
     }
 
