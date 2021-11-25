@@ -38,4 +38,10 @@ public class CardResource {
         return Response.ok(GSON.toJson(HttpUtils.shuffleCurrentDeck(id))).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("draw/{id}")
+    public Response drawCard(@PathParam("id") String id) throws IOException {
+        return Response.ok(GSON.toJson(HttpUtils.drawCard(id))).build();
+    }
 }

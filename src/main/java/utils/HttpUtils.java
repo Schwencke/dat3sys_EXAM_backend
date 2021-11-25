@@ -79,21 +79,26 @@ public class HttpUtils {
     }
 
     public static NewDeckWithCardDTO fetchNewDeck() throws IOException {
-    JsonObject newDeck = fetchJson("http://deckofcardsapi.com/api/deck/new/draw/?count=1");
-    HashMap[] cards = gson.fromJson(newDeck.get("cards"), HashMap[].class);
-    NewDeckWithCardDTO dto = new NewDeckWithCardDTO();
-    dto.setDeck_id(newDeck.get("deck_id").getAsString());
-    dto.setCode((String) cards[0].get("code"));
-    dto.setSuit((String) cards[0].get("suit"));
-    dto.setValue((String) cards[0].get("value"));
-    dto.setImage((String) cards[0].get("image"));
-    dto.setRemaining(newDeck.get("remaining").getAsString());
-    FACADE.persistDeck(dto.getDeck_id());
-    return dto;
+        JsonObject newDeck = fetchJson("http://deckofcardsapi.com/api/deck/new/draw/?count=1");
+        HashMap[] cards = gson.fromJson(newDeck.get("cards"), HashMap[].class);
+        NewDeckWithCardDTO dto = new NewDeckWithCardDTO();
+        dto.setDeck_id(newDeck.get("deck_id").getAsString());
+        dto.setCode((String) cards[0].get("code"));
+        dto.setSuit((String) cards[0].get("suit"));
+        dto.setValue((String) cards[0].get("value"));
+        dto.setImage((String) cards[0].get("image"));
+        dto.setRemaining(newDeck.get("remaining").getAsString());
+        FACADE.persistDeck(dto.getDeck_id());
+        return dto;
     }
 
     public static DeckDTO shuffleCurrentDeck(String id) throws IOException {
-        JsonObject deck = fetchJson("http://deckofcardsapi.com/api/deck/"+id+"/shuffle/");
-      return new DeckDTO(deck.get("success").getAsBoolean());
+        JsonObject deck = fetchJson("http://deckofcardsapi.com/api/deck/" + id + "/shuffle/");
+        return new DeckDTO(deck.get("success").getAsBoolean());
+    }
+
+    public static DeckDTO drawCard(String id) throws IOException {
+        JsonObject card = fetchJson("http://deckofcardsapi.com/api/deck/" + id + "/draw/?count=1");
+        return new DeckDTO(card.get("success").getAsBoolean());
     }
 }
