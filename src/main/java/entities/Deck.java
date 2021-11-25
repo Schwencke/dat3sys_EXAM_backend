@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.*;
 
 @Entity
@@ -14,15 +15,21 @@ public class Deck implements Serializable {
     private String deck_id;
 
     @Column(name = "created")
-    private Timestamp created;
+    private Long created;
 
     @Column(name = "completed")
-    private Timestamp completed;
+    private Long completed;
 
     @Column(name = "finished")
     private boolean finished;
 
     public Deck() {
+    }
+
+    public Deck(String deck_id) {
+        this.deck_id = deck_id;
+        Date date = new Date();
+        this.created = new Timestamp(date.getTime()).getTime();
     }
 
     public String getDeck_id() {
@@ -33,19 +40,19 @@ public class Deck implements Serializable {
         this.deck_id = deck_id;
     }
 
-    public Timestamp getCreated() {
+    public Long getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 
-    public Timestamp getCompleted() {
+    public Long getCompleted() {
         return completed;
     }
 
-    public void setCompleted(Timestamp completed) {
+    public void setCompleted(Long completed) {
         this.completed = completed;
     }
 
