@@ -1,6 +1,6 @@
 package dtos;
 
-public class DrawCardDTO {
+public class CardDTO {
     String image;
     String value;
     String suit;
@@ -8,10 +8,10 @@ public class DrawCardDTO {
     String deck_id;
     String remaining;
 
-    public DrawCardDTO() {
+    public CardDTO() {
     }
 
-    public DrawCardDTO(boolean success, String image, String value, String suit, String code, String deck_id, String remaining) {
+    public CardDTO(boolean success, String image, String value, String suit, String code, String deck_id, String remaining) {
         this.image = image;
         this.value = value;
         this.suit = suit;

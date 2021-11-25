@@ -1,6 +1,7 @@
 package utils;
 
 import com.google.gson.*;
+import dtos.CardDTO;
 import dtos.DeckDTO;
 import dtos.NewDeckWithCardDTO;
 import facades.DeckFacade;
@@ -99,8 +100,16 @@ public class HttpUtils {
         return new DeckDTO(deck.get("success").getAsBoolean());
     }
 
-    public static DeckDTO drawCard(String id) throws IOException {
-        JsonObject card = fetchJson("http://deckofcardsapi.com/api/deck/" + id + "/draw/?count=1");
-        return new DeckDTO(card.get("success").getAsBoolean());
+    public static CardDTO drawCard(String id) throws IOException {
+        JsonObject newCard = fetchJson("http://deckofcardsapi.com/api/deck/" + id + "/draw/?count=1");
+        HashMap[] cards = gson.fromJson(newCard.get("cards"), HashMap[].class);
+        CardDTO dto = new CardDTO();
+        dto.setDeck_id(newCard.get("deck_id").getAsString());
+        dto.setCode((String) cards[0].get("code"));
+        dto.setSuit((String) cards[0].get("suit"));
+        dto.setValue((String) cards[0].get("value"));
+        dto.setImage((String) cards[0].get("image"));
+        dto.setRemaining(newCard.get("remaining").getAsString());
+        return dto;
     }
 }
