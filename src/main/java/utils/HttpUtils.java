@@ -97,7 +97,7 @@ public class HttpUtils {
 
     public static DeckDTO shuffleCurrentDeck(String id) throws IOException {
         JsonObject deck = fetchJson("http://deckofcardsapi.com/api/deck/" + id + "/shuffle/");
-        return new DeckDTO(deck.get("success").getAsBoolean());
+        return new DeckDTO(deck.get("success").getAsBoolean(), deck.get("remaining").getAsString());
     }
 
     public static CardDTO drawCard(String id) throws IOException {
